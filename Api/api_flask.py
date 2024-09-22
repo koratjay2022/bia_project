@@ -16,11 +16,11 @@ def hello_world():
 def get_data():
     return jsonify(data)
 
-# @app.route('/api/data', methods=['POST'])
-# def add_data():
-#     new_item = request.json  
-#     data.append(new_item)  
-#     return jsonify(new_item), 201
+@app.route('/api/data', methods=['POST'])
+def add_data():
+    new_item = request.json  
+    data.append(new_item)  
+    return jsonify(new_item), 201
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
