@@ -48,7 +48,6 @@ def insert_row(name, age):
         cursor = conn.cursor()
         query = "INSERT INTO users (name, age) VALUES (%s, %s)"
         cursor.execute(query, (name, age))
-        
         conn.commit()
         # cursor.close()
         # conn.close()
