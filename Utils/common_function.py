@@ -65,6 +65,29 @@ def train_and_evaluate_model(model, X_train, X_test, y_train, y_test):
         raise ValueError("Model must be either a classifier or a regressor.")
     
     return y_pred,metric,model
+
+def train_and_evaluate_multiple_models(models, X_train, X_test, y_train, y_test) :
+    results = {}
+    
+    for model in models:
+        model.fit(X_train, y_train)
+        
+        y_pred = model.predict(X_test)
+        
+        model_name = model.__class__.__name__
+        
+        if is_classifier(model):
+            metric = accuracy_score(y_test, y_pred)
+            print(f"Model: {model_name} (Classifier) -> Accuracy: {metric}")
+        elif is_regressor(model):
+            metric = r2_score(y_test, y_pred)
+            print(f"Model: {model_name} (Regressor) -> R² Score: {metric}")
+        else:
+            raise ValueError(f"Model {model_name} is neither a classifier nor a regressor.")
+        
+        results[model_name] = metric
+    
+    return results
 # class common_Fucnation : 
     
 #     def __init__(self,data) :
