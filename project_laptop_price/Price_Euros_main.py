@@ -24,6 +24,10 @@ df['TypeName_encoded'] = comm_fun.label_encode(data=df,column="TypeName")
 df = comm_fun.replace_values(data=df,column="OpSys",to_replace={'Windows 10 S': 'Windows 10', 'Mac OS X': 'macOS'},)
 df = comm_fun.remove_rows(data=df,column="OpSys",value="Android")
 
+# preprocessing df['Ram'] 
+df['Ram'] = df['Ram'].replace(r'GB', '', regex=True)
+df['Ram'] = df['Ram'].astype(int)
+
 # preprocessing df['ScreenResolution'] 
 df['ScreenResolution'] = df['ScreenResolution'].str.extract(r'(\d+x\d+)')
 
@@ -31,10 +35,6 @@ df['resolution'] = df['ScreenResolution'].apply(lambda x: re.search(r'\d+x\d+', 
 df[['resolution_width', 'resolution_height']] = df['resolution'].str.split('x', expand=True)
 df['resolution_width'] = df['resolution_width'].astype(int)
 df['resolution_height'] = df['resolution_height'].astype(int)
-
-# preprocessing df['Ram'] 
-df['Ram'] = df['Ram'].replace(r'GB', '', regex=True)
-df['Ram'] = df['Ram'].astype(int)
 
 # preprocessing df['Cpu'] 
 df['Cpu_Brand'] = df['Cpu'].str.split().str[0]
